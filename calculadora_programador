@@ -1,0 +1,453 @@
+#include<stdio.h>
+
+// Funções de operações aritméticas
+float adicao(float num1, float num2);
+float subtracao(float num1, float num2);
+float multiplicacao(float num1, float num2);
+float divisao(float num1, float num2);
+
+// Funções para bases numéricas
+void base_decimal();
+void base_binaria();
+void base_octal();
+void base_hexadecimal();
+
+// Funções para conversões entre bases
+int binario_para_decimal(char *binario);
+void decimal_para_binario(int decimal, char *binario);
+int octal_para_decimal(char *octal);
+void decimal_para_octal(int decimal, char *octal);
+int hexadecimal_para_decimal(char *hexadecimal);
+void decimal_para_hexadecimal(int decimal, char *hexadecimal);
+
+int main(void)
+{
+    printf("Calculadora para Programadores\n\n");
+
+    printf("Escolha a base numerica\n");
+    printf("1 - Base Decimal\n");
+    printf("2 - Base Binaria\n");
+    printf("3 - Base Octal\n");
+    printf("4 - Base Hexadecimal\n");
+    printf("9 - Encerrar a calculadora\n");
+
+    int escolha;
+    printf("Digite a base escolhida: ");
+    scanf("%d", &escolha);
+
+    switch (escolha)
+    {
+    case 1:
+        printf("Base Decimal\n\n");
+        base_decimal();
+        break;
+    case 2:
+        printf("Base Binaria\n\n");
+        base_binaria();
+        break;
+    case 3:
+        printf("Base Octal\n\n");
+        base_octal();
+        break;
+    case 4:
+        printf("Base Hexadecimal\n\n");
+        base_hexadecimal();
+        break;
+    case 9:
+        printf("Ate logo!");
+        return 0;
+    
+    default:
+        printf("Opcao invalida!\n");
+        return 0;
+    }
+
+    return 0;
+}
+
+// Base decimal
+void base_decimal()
+{
+    int escolha = 0;
+    float num1, num2;
+    float resultado = 0;
+
+    printf("1 - Adicao\n");
+    printf("2 - Subtracao\n");
+    printf("3 - Multiplicacao\n");
+    printf("4 - Divisao\n");
+    do
+    {
+        printf("Digite a operacao desejada: ");
+        scanf("%d", &escolha);
+    } while (escolha < 1 || escolha > 4);
+    
+    printf("Digite o primeiro valor: ");
+    scanf("%f", &num1);
+    printf("Digite o segundo valor: ");
+    scanf("%f", &num2);
+
+    switch (escolha)
+    {
+    case 1:
+        resultado = adicao(num1, num2);
+        printf("Resultado: %.2f\n", resultado);        
+        break;
+    case 2:
+        resultado = subtracao(num1, num2);
+        printf("Resultado: %.2f\n", resultado);
+        break;
+    case 3:
+        resultado = multiplicacao(num1, num2);
+        printf("Resultado: %.2f\n", resultado);
+        break;
+    case 4:
+        resultado = divisao(num1, num2);
+        printf("Resultado: %.2f\n", resultado);
+        break;    
+    default:
+        break;
+    }
+}
+
+// Base binária
+void base_binaria()
+{
+    int escolha = 0;
+    char binario1[33], binario2[33];
+    int num1, num2, resultado;
+
+    printf("1 - Adicao\n");
+    printf("2 - Subtracao\n");
+    printf("3 - Multiplicacao\n");
+    printf("4 - Divisao\n");
+    do
+    {
+        printf("Digite a operacao desejada: ");
+        scanf("%d", &escolha);
+    } while (escolha < 1 || escolha > 4);
+    
+    printf("Digite o primeiro valor binario: ");
+    scanf("%s", binario1);
+    printf("Digite o segundo valor binario: ");
+    scanf("%s", binario2);
+
+    num1 = binario_para_decimal(binario1);
+    num2 = binario_para_decimal(binario2);
+
+    switch (escolha)
+    {
+    case 1:
+        resultado = adicao(num1, num2);
+        break;
+    case 2:
+        resultado = subtracao(num1, num2);
+        break;
+    case 3:
+        resultado = multiplicacao(num1, num2);
+        break;
+    case 4:
+        resultado = divisao(num1, num2);
+        break;    
+    default:
+        resultado = 0;
+        break;
+    }
+
+    char resultado_binario[33];
+    decimal_para_binario(resultado, resultado_binario);
+    printf("Resultado em binario: %s\n", resultado_binario);
+}
+
+// Base octal
+void base_octal()
+{
+    int escolha = 0;
+    char octal1[12], octal2[12];
+    int num1, num2, resultado;
+
+    printf("1 - Adicao\n");
+    printf("2 - Subtracao\n");
+    printf("3 - Multiplicacao\n");
+    printf("4 - Divisao\n");
+    do
+    {
+        printf("Digite a operacao desejada: ");
+        scanf("%d", &escolha);
+    } while (escolha < 1 || escolha > 4);
+    
+    printf("Digite o primeiro valor octal: ");
+    scanf("%s", octal1);
+    printf("Digite o segundo valor octal: ");
+    scanf("%s", octal2);
+
+    num1 = octal_para_decimal(octal1);
+    num2 = octal_para_decimal(octal2);
+
+    switch (escolha)
+    {
+    case 1:
+        resultado = adicao(num1, num2);
+        break;
+    case 2:
+        resultado = subtracao(num1, num2);
+        break;
+    case 3:
+        resultado = multiplicacao(num1, num2);
+        break;
+    case 4:
+        resultado = divisao(num1, num2);
+        break;    
+    default:
+        resultado = 0;
+        break;
+    }
+
+    char resultado_octal[12];
+    decimal_para_octal(resultado, resultado_octal);
+    printf("Resultado em octal: %s\n", resultado_octal);
+}
+
+// Base hexadecimal
+void base_hexadecimal()
+{
+    int escolha = 0;
+    char hexadecimal1[9], hexadecimal2[9];
+    int num1, num2, resultado;
+
+    printf("1 - Adicao\n");
+    printf("2 - Subtracao\n");
+    printf("3 - Multiplicacao\n");
+    printf("4 - Divisao\n");
+    do
+    {
+        printf("Digite a operacao desejada: ");
+        scanf("%d", &escolha);
+    } while (escolha < 1 || escolha > 4);
+    
+    printf("Digite o primeiro valor hexadecimal: ");
+    scanf("%s", hexadecimal1);
+    printf("Digite o segundo valor hexadecimal: ");
+    scanf("%s", hexadecimal2);
+
+    num1 = hexadecimal_para_decimal(hexadecimal1);
+    num2 = hexadecimal_para_decimal(hexadecimal2);
+
+    switch (escolha)
+    {
+    case 1:
+        resultado = adicao(num1, num2);
+        break;
+    case 2:
+        resultado = subtracao(num1, num2);
+        break;
+    case 3:
+        resultado = multiplicacao(num1, num2);
+        break;
+    case 4:
+        resultado = divisao(num1, num2);
+        break;    
+    default:
+        resultado = 0;
+        break;
+    }
+
+    char resultado_hexadecimal[9];
+    decimal_para_hexadecimal(resultado, resultado_hexadecimal);
+    printf("Resultado em hexadecimal: %s\n", resultado_hexadecimal);
+}
+
+// Conversões entre bases
+int binario_para_decimal(char *binario)
+{
+    int decimal = 0;
+    int base = 1;
+    int i = 0;
+
+    while (binario[i] != '\0')
+    {
+        i++;
+    }
+    i--;
+
+    while (i >= 0)
+    {
+        if (binario[i] == '1')
+        {
+            decimal += base;
+        }
+        base *= 2;
+        i--;
+    }
+    return decimal;
+}
+
+void decimal_para_binario(int decimal, char *binario)
+{
+    int index = 0;
+    int i;
+
+    if (decimal == 0)
+    {
+        binario[index++] = '0';
+    }
+    else
+    {
+        while (decimal > 0)
+        {
+            binario[index++] = (decimal % 2) + '0';
+            decimal /= 2;
+        }
+    }
+    binario[index] = '\0';
+
+    // Inverte a string para obter o binário correto
+    for (i = 0; i < index / 2; i++)
+    {
+        char temp = binario[i];
+        binario[i] = binario[index - i - 1];
+        binario[index - i - 1] = temp;
+    }
+}
+
+int octal_para_decimal(char *octal)
+{
+    int decimal = 0;
+    int base = 1;
+    int i = 0;
+
+    while (octal[i] != '\0')
+    {
+        i++;
+    }
+    i--;
+
+    while (i >= 0)
+    {
+        decimal += (octal[i] - '0') * base;
+        base *= 8;
+        i--;
+    }
+    return decimal;
+}
+
+void decimal_para_octal(int decimal, char *octal)
+{
+    int index = 0;
+    int i;
+
+    if (decimal == 0)
+    {
+        octal[index++] = '0';
+    }
+    else
+    {
+        while (decimal > 0)
+        {
+            octal[index++] = (decimal % 8) + '0';
+            decimal /= 8;
+        }
+    }
+    octal[index] = '\0';
+
+    // Inverte a string para obter o octal correto
+    for (i = 0; i < index / 2; i++)
+    {
+        char temp = octal[i];
+        octal[i] = octal[index - i - 1];
+        octal[index - i - 1] = temp;
+    }
+}
+
+int hexadecimal_para_decimal(char *hexadecimal)
+{
+    int decimal = 0;
+    int base = 1;
+    int i = 0;
+
+    while (hexadecimal[i] != '\0')
+    {
+        i++;
+    }
+    i--;
+
+    while (i >= 0)
+    {
+        if (hexadecimal[i] >= '0' && hexadecimal[i] <= '9')
+        {
+            decimal += (hexadecimal[i] - '0') * base;
+        }
+        else if (hexadecimal[i] >= 'A' && hexadecimal[i] <= 'F')
+        {
+            decimal += (hexadecimal[i] - 'A' + 10) * base;
+        }
+        base *= 16;
+        i--;
+    }
+    return decimal;
+}
+
+void decimal_para_hexadecimal(int decimal, char *hexadecimal)
+{
+    int index = 0;
+    int i;
+
+    if (decimal == 0)
+    {
+        hexadecimal[index++] = '0';
+    }
+    else
+    {
+        while (decimal > 0)
+        {
+            int resto = decimal % 16;
+            if (resto < 10)
+            {
+                hexadecimal[index++] = remainder + '0';
+            }
+            else
+            {
+                hexadecimal[index++] = remainder - 10 + 'A';
+            }
+            decimal /= 16;
+        }
+    }
+    hexadecimal[index] = '\0';
+
+    // Inverte a string para obter o hexadecimal correto
+    for (i = 0; i < index / 2; i++)
+    {
+        char temp = hexadecimal[i];
+        hexadecimal[i] = hexadecimal[index - i - 1];
+        hexadecimal[index - i - 1] = temp;
+    }
+}
+
+// Implementação das funções de operações aritméticas
+float adicao(float num1, float num2)
+{
+    return num1 + num2;
+}
+
+float subtracao(float num1, float num2)
+{
+    return num1 - num2;
+}
+
+float multiplicacao(float num1, float num2)
+{
+    return num1 * num2;
+}
+
+float divisao(float num1, float num2)
+{
+    if (num2 == 0)
+    {
+        printf("Nao e possivel dividir por zero\n");
+        return 0;
+    }
+    else
+    {
+        return num1 / num2;
+    }
+}
